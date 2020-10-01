@@ -1,0 +1,11 @@
+<ng-container *ngFor="let com of comentarios; let j = index">
+    <li class="list-group-item list-group-item-action " 
+        [ngClass]="{'list-group-item-secondary': j%2 == 0}" >
+        {{com.body}}
+        <p style="font-size: small;">
+            by: {{com.email}}
+            <br>
+            ID comentario: {{com.id}}
+        </p>
+    </li>
+</ng-container>  

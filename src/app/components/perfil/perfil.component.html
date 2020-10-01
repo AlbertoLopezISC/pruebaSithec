@@ -1,0 +1,81 @@
+<app-loading *ngIf="!flagLoadingDatos && !flagLoadingPosts"></app-loading>
+<ng-container *ngIf="!flagExisteUsuario">
+    <div class="row m-5">
+        <div class="col-md-12">
+            <div class="alert alert-warning">
+                <strong>Lo siento!</strong> No existe usuario con el ID introducido.
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+
+<div class="container" *ngIf="flagLoadingDatos && flagLoadingPosts && flagExisteUsuario">
+    <div class="row mx-auto">
+        <div class="col-12 my-3">
+            <mat-card class="example-card">
+                <mat-card-header class="mt-4 mb-3">
+                    <mat-card-title>{{ datos.name }}</mat-card-title>
+                    <mat-card-subtitle>
+                        Nombre de usuario: {{datos.username}}
+                        <br>
+                        ID usuario: {{datos.id}}
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 my-4 ">
+                                <p class="font-weight-bold">Informacion personal:</p>
+                                <p>Correo: {{datos.email}}</p>
+                                <p>Telefono: {{datos.phone}}</p>
+                                <p>Sitio Web: {{datos.website}}</p>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 my-4">
+                                <p class="font-weight-bold">Direccion: </p>
+                                <p>Ciudad: {{datos.address.city}}</p>
+                                <p>Calle: {{datos.address.street}}</p>
+                                <p>Zipcode: {{datos.address.zipcode}}</p>
+                                <p>Suite: {{datos.address.suite}}</p>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 my-4">
+                                <p class="font-weight-bold">Compañia:</p>
+                                <p>Nombre: {{datos.company.name}}</p>
+                                <p>Eslogan: {{datos.company.catchPhrase}}</p>
+                                <p>BS: {{datos.company.bs}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-content>
+                    <p class="font-weight-bold" style="font-size: large;">Publicaciones:</p>
+                    <ul class="list-group">
+                        <ng-container *ngFor="let post of posts; let i = index">
+                            <div class="list-group-item list-group-item-action"
+                                [ngClass]="{'list-group-item-dark': i%2 == 0}">
+                                <p class="font-weight-bold" style="font-size: medium;"> 
+                                    Titulo: {{post.title}}
+                                </p>
+                                <mat-card-content>
+                                    {{post.body}}
+                                </mat-card-content>
+                                <mat-card-content *ngIf="flagsComentarios[i]">
+                                    <ul class="list-group">
+                                        <app-comentario [comentarios]="comentarios[i]" ></app-comentario>                  
+                                    </ul>
+                                </mat-card-content>
+                                <mat-card-actions>
+                                    <button (click)="getComentarios(post, i)" mat-button>
+                                        <span *ngIf="flagsComentarios[i]; else elseComentariosHide">Ocultar comentarios</span>
+                                        <ng-template #elseComentariosHide>Ver comentarios</ng-template>
+                                    </button>
+                                </mat-card-actions>
+                            </div>
+                        </ng-container>
+                    </ul>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,43 @@
+<app-loading *ngIf="!flagLoading"></app-loading>
+
+
+<ng-container *ngIf="flagLoading">
+    <div class="card-columns">
+        <div class="card my-3" *ngFor="let post of items; let i = index">
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>
+                        Titulo:
+                        <br>
+                        {{ post.title }}
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        By: {{usuarios[post.userId-1].name}}
+                        <br>
+                        ID usuario: {{post.userId}}
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        {{ post.body }}
+                    </p>
+                    <mat-card-subtitle>Username: {{usuarios[post.userId-1].username}}</mat-card-subtitle>
+                </mat-card-content>
+                <!-- Preguntamos por comentarios[i] == null ya que si esta en nulo, queremos que salga el signo
+                    de cargando. Y asi controlamos que no se muestre siempre. -->
+                <app-loading *ngIf="flagComentarios[i] && comentarios[i] == null"></app-loading>
+                <mat-card-content *ngIf="flagComentarios[i]">
+                    <ul class="list-group">
+                        <app-comentario [comentarios]="comentarios[i]" ></app-comentario>                  
+                    </ul>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button (click)="getComentarios(post, i)" mat-button>
+                        <span *ngIf="flagComentarios[i]; else elseComentariosHide">Ocultar comentarios</span>
+                        <ng-template #elseComentariosHide>Ver comentarios</ng-template>
+                    </button>
+                  </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</ng-container>
