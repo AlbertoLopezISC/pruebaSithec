@@ -5,7 +5,7 @@
     <div class="card-columns">
         <div class="card my-3" *ngFor="let post of items; let i = index">
             <mat-card class="example-card">
-                <mat-card-header>
+                <mat-card-header (click)="verPerfil(post.userId)">
                     <mat-card-title>
                         Titulo:
                         <br>

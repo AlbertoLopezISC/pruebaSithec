@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { PostService } from './../../services/post.service';
 import { UsuarioService } from './../../services/usuario.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -15,7 +16,7 @@ export class PostComponent implements OnInit {
   flagLoading: boolean = false;
   flagComentarios: boolean[] = [];
 
-  constructor(private usuarioService: UsuarioService, private postService: PostService) {
+  constructor(private router: Router, private usuarioService: UsuarioService, private postService: PostService) {
     this.usuarioService.getUsuarios().subscribe((data: any) => {
       this.usuarios = data;
       this.flagLoading = true;
@@ -45,6 +46,10 @@ export class PostComponent implements OnInit {
         }
       });
     }
+  }
+
+  verPerfil(id){
+    this.router.navigate(['/perfil', id]);
   }
 
 }
