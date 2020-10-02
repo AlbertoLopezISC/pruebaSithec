@@ -64,6 +64,8 @@ export class PerfilComponent implements OnInit {
     if (this.comentarios[posicion] == null){
       this.postService.getComentariosPorPostId(post.id).subscribe((data: any) => {
         if (data.length === 0){
+          // para no complicarnos en hacer otra condicion en html simplemente seguimos la estructura de la 
+          // respuesta y le asignamos el valor que queramos cuando no haya ningun comentario
           this.comentarios[posicion] = [];
           this.comentarios[posicion][0] = [];
           this.comentarios[posicion][0].body = 'No se encontraron comentarios :(';

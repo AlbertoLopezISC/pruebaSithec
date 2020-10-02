@@ -18,10 +18,14 @@
                     </mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
-                    <p>
+                    <p style="font-size: medium;">
                         {{ post.body }}
                     </p>
-                    <mat-card-subtitle>Username: {{usuarios[post.userId-1].username}}</mat-card-subtitle>
+                    <mat-card-subtitle>
+                        Username: {{usuarios[post.userId-1].username}}
+                        <br>
+                        ID publicacion: {{post.id}}
+                    </mat-card-subtitle>
                 </mat-card-content>
                 <!-- Preguntamos por comentarios[i] == null ya que si esta en nulo, queremos que salga el signo
                     de cargando. Y asi controlamos que no se muestre siempre. -->

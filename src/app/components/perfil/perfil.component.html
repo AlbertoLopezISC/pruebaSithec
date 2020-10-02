@@ -49,7 +49,9 @@
                 </mat-card-content>
                 <mat-card-content>
                     <p class="font-weight-bold" style="font-size: large;">Publicaciones:</p>
-                    <ul class="list-group">
+                    <app-post [items]="posts"></app-post>
+                    <!-- Lo siguiente es otra manera de verlo sin utilizar el componente post -->
+                    <!--<ul class="list-group">
                         <ng-container *ngFor="let post of posts; let i = index">
                             <div class="list-group-item list-group-item-action"
                                 [ngClass]="{'list-group-item-dark': i%2 == 0}">
@@ -72,7 +74,7 @@
                                 </mat-card-actions>
                             </div>
                         </ng-container>
-                    </ul>
+                    </ul> -->
                 </mat-card-content>
             </mat-card>
         </div>
