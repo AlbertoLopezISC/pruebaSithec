@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row my-5">
+        <div class="col-6 mx-auto bg-light border border-dark rounded">
+            <h2>Incia sesion!</h2>
+            <form [formGroup]="formularioLogin" (ngSubmit)="iniciarSesion()" class="needs-validation" novalidate>
+                <div class="container">
+                    <div class="row form-group my-2">
+                        <label class=" col-2 col-form-label">Correo:</label>
+                        <div class="col-10">
+                            <input class="form-control" 
+                                [ngClass]="{'is-invalid': !formularioLogin.get('email').valid}" 
+                                type="text"
+                                placeholder="Correo"
+                                formControlName="email">
+                            <div *ngIf="formularioLogin.controls['email'].errors?.required; else elseUser" class="invalid-feedback">Necesita introducir un usuario</div>
+                            <ng-template #elseUser>
+                                <div *ngIf="formularioLogin.controls['email'].errors?.notInclude" class="invalid-feedback">Usuario Invalido</div>
+                            </ng-template>
+                        </div>
+                    </div>
+                    <div class="row form-group my-2">
+                        <label class="col-2 col-form-label">Contraseña:</label>
+                        <div class="col-10">
+                            <input class="form-control" 
+                                [ngClass]="{'is-invalid': !formularioLogin.get('password').valid}" 
+                                type="password"
+                                placeholder="Contraseña"
+                                formControlName="password">
+                            <div *ngIf="formularioLogin.controls['password'].errors?.required; else elseContrasena" class="invalid-feedback">Necesitas introducir la Contraseña</div>
+                            <ng-template #elseContrasena>
+                                <div *ngIf="formularioLogin.controls['password'].errors?.passwordIncorrect" class="invalid-feedback">Contraseña incorrecta</div>
+                            </ng-template>                            
+                        </div>
+                    </div>
+                    <div *ngIf="incorrectPasswordFlag" class="text-danger">
+                        Contraseña incorrecta
+                    </div>
+                    <div class="ml-5">
+                        <label><input formControlName="recuerdame" type="checkbox" id="cbox1" value="first_checkbox"> Recordarme</label><br>
+                    </div>
+                    <div class="row form-group flex flex-row-reverse my-2 mr-2">
+                        <button class="btn btn-outline-primary float-right float-xl-right" [disabled] = "formularioLogin.invalid" type="submit">Aceptar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

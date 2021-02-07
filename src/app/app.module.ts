@@ -19,6 +19,8 @@ import { PostService } from './services/post.service';
 import { UsuarioService } from './services/usuario.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingComponent } from './components/shared/loading/loading.component';
+import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesion.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,14 +30,17 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
     PostComponent,
     ComentarioComponent,
     PerfilComponent,
-    LoadingComponent
+    LoadingComponent,
+    IniciarSesionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     AngularMaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     UsuarioService,

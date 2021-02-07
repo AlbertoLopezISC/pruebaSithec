@@ -16,6 +16,8 @@ export class PostComponent implements OnInit {
   flagLoading: boolean = false;
   flagComentarios: boolean[] = [];
 
+  flag2daForma: boolean = false;
+
   constructor(private router: Router, private usuarioService: UsuarioService, private postService: PostService) {
     this.usuarioService.getUsuarios().subscribe((data: any) => {
       this.usuarios = data;
@@ -52,4 +54,7 @@ export class PostComponent implements OnInit {
     this.router.navigate(['/perfil', id]);
   }
 
+  reformar(){
+    console.log("reformando")
+  }
 }
