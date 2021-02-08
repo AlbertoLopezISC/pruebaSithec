@@ -36,13 +36,14 @@ export class PerfilComponent implements OnInit {
 
   getDatosUsuario(id: string){
     this.usuarioService.getUsuario(id).subscribe((data: any) => {
+      console.log(data)
       this.flagLoadingDatos = true;
-      if (data.length !== 0){
-        this.datos = data;
-        this.flagExisteUsuario = true;
-      } else {
+      this.datos = data;
+      this.flagExisteUsuario = true;
+      
+    }, (error) => {
+      console.log("no existe usuario")
         this.flagExisteUsuario = false;
-      }
     });
     this.usuarioService.getPostsPorIdUsuario(id).subscribe((data: any) => {
       this.flagLoadingPosts = true;

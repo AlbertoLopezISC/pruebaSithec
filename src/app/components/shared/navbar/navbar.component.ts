@@ -1,14 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { AuthGuardService } from './../../../auth-guard.service';
+import { environment } from './../../../../environments/environment';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnDestroy {
 
-  constructor(private router: Router) { }
+  flagLoggedUser = environment.userLogged
+
+  constructor(private router: Router, private auth: AuthGuardService) { 
+    this.$stop = new Subject<void>();
+    this.auth._user.pipe(takeUntil(this.$stop)).subscribe((flag) => {
+      console.log("NAVBAAAR " + flag)
+      this.flagLoggedUser = flag;
+    })
+   }
+  ngOnDestroy(): void {
+    this.$stop.next();
+    this.$stop.complete();
+  }
+  
+  $stop: any;
 
   ngOnInit(): void {
   }
@@ -18,6 +36,13 @@ export class NavbarComponent implements OnInit {
     if (id !== ''){
       this.router.navigate(['/perfil', id]);
     }
+  }
+
+  cerrarSesion(){
+    this.router.navigate(['/iniciarSesion']);
+    this.flagLoggedUser = false;
+    this.auth.logOut()
+    environment.userLogged = false;
   }
 
 }

@@ -1,3 +1,5 @@
+import { AuthGuardService } from './../../auth-guard.service';
+import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
@@ -14,7 +16,7 @@ export class IniciarSesionComponent implements OnInit {
   incorrectPasswordFlag = false;
   cookies;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private auth: AuthGuardService) { }
 
   ngOnInit(): void {
     this.formularioLogin = new FormGroup({
@@ -29,16 +31,18 @@ export class IniciarSesionComponent implements OnInit {
   iniciarSesion(){
     console.log(`${this.formularioLogin.get('recuerdame').value}` )
     if (passwords[this.formularioLogin.get('email').value] == this.formularioLogin.get('password').value){
-      this.router.navigate(['/inicio']);
       if(this.formularioLogin.get('recuerdame').value){
         console.log("Recordarlo")
         this.setCookie("cookieEmail", this.formularioLogin.get('email').value, 15);
         this.setCookie("cookiePassword", this.formularioLogin.get('password').value, 15);
+        this.auth.logIn();
       } else {
         this.setCookie("cookieEmail", '', -1);
         this.setCookie("cookiePassword", '', -1);
         console.log("No Recordarlo")
       }
+      environment.userLogged = true;
+      this.router.navigate(['/inicio']);
     } else {
       this.incorrectPasswordFlag = true
     }
