@@ -35,12 +35,12 @@ export class IniciarSesionComponent implements OnInit {
         console.log("Recordarlo")
         this.setCookie("cookieEmail", this.formularioLogin.get('email').value, 15);
         this.setCookie("cookiePassword", this.formularioLogin.get('password').value, 15);
-        this.auth.logIn();
       } else {
         this.setCookie("cookieEmail", '', -1);
         this.setCookie("cookiePassword", '', -1);
         console.log("No Recordarlo")
       }
+      this.auth.logIn();
       environment.userLogged = true;
       this.router.navigate(['/inicio']);
     } else {
@@ -87,7 +87,10 @@ export function validateUser(): ValidatorFn {
   }
 }
 
-/*export function confirmContrasena(user: string): ValidatorFn {
+/*
+  si lo deseamos, validacion custom para checar si es incorrecta la contrase;a y mostrarlo
+  en el formulario
+  export function confirmContrasena(user: string): ValidatorFn {
   return(control: AbstractControl): { [key: string]: any} => {
     const value: any = control.value;
     return passwords[user] === value ? null : { passwordIncorrect: {value}}

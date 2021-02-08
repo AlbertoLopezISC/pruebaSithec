@@ -12,9 +12,9 @@
                                 type="text"
                                 placeholder="Correo"
                                 formControlName="email">
-                            <div *ngIf="formularioLogin.controls['email'].errors?.required; else elseUser" class="invalid-feedback">Necesita introducir un usuario</div>
+                            <div *ngIf="formularioLogin.controls['email'].errors?.required; else elseUser" class="invalid-feedback">Necesita introducir un correo</div>
                             <ng-template #elseUser>
-                                <div *ngIf="formularioLogin.controls['email'].errors?.notInclude" class="invalid-feedback">Usuario Invalido</div>
+                                <div *ngIf="formularioLogin.controls['email'].errors?.notInclude" class="invalid-feedback">Correo no disponible</div>
                             </ng-template>
                         </div>
                     </div>
